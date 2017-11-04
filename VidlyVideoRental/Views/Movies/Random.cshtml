@@ -1,0 +1,33 @@
+﻿@*@using VidlyVideoRental.Models*@
+@*@model VidlyVideoRental.Models.Movie*@
+
+@model VidlyVideoRental.ViewModel.RandomMovieViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var className = Model.Customers.Count > 1 ? "popular" : null;
+}
+
+<h2 class="@className">@Model.Movie.Name</h2>
+<h2>@Model.Customers[0].Name</h2>
+@* In ViewDataDictionary we need to explicitly cast each property which is ugly code below *@
+@*<h2>@( ((Movie)ViewData["Movie"]).Name )</h2>*@
+@*<h2>@ViewBag.Movie.Name</h2>*@
+
+@if(Model.Customers.Count == 0)
+{
+    <text>No one has rented this movie before.</text>
+}
+else
+{ 
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li>@customer.Name</li>
+        }
+    </ul>
+}
+
